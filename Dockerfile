@@ -1,14 +1,24 @@
-# Use a base image with Java
-FROM openjdk:11-jre-slim
+# Stage 1: Build the application
+FROM maven:3.8.5-openjdk-11 AS builder
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the jar file into the container
-COPY target/my-app-1.0-SNAPSHOT.jar app.jar
+# Copy the pom.xml and any other necessary files
+COPY pom.xml .
+COPY src ./src
 
-# Expose the port your application runs on
-EXPOSE 8080
+# Build the application
+RUN mvn package -Pproduction
 
-# Command to run your application
-CMD ["java", "-jar", "app.jar"]
+# Stage 2: Create the final image
+FROM openjdk:11-jre-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the JAR file from the builder stage
+COPY --from=builder /app/target/my-app-1.0-SNAPSHOT.jar my-app.jar
+
+# Command to run the application
+CMD ["java", "-jar", "my-app.jar"]

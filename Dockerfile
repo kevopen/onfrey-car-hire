@@ -1,18 +1,18 @@
 # Stage 1: Build the application
-FROM maven:3.8.5-openjdk-11 AS builder
+FROM maven:3.8.5-openjdk-17 AS builder
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Copy the pom.xml and any other necessary files
-COPY pom.xml .
+COPY pom.xml . 
 COPY src ./src
 
 # Build the application
 RUN mvn package -Pproduction
 
 # Stage 2: Create the final image
-FROM openjdk:11-jre-slim
+FROM openjdk:17-jre-slim
 
 # Set the working directory in the container
 WORKDIR /app

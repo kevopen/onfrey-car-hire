@@ -12,7 +12,7 @@ COPY src ./src
 RUN mvn package -Pproduction
 
 # Stage 2: Create the final image
-FROM openjdk:17-jre-slim
+FROM openjdk:17-slim
 
 # Set the working directory in the container
 WORKDIR /app

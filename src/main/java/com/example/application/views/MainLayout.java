@@ -1,6 +1,9 @@
 package com.example.application.views;
 
+import com.example.application.views.caractivities.CarActivitiesView;
 import com.example.application.views.dashboard.DashboardView;
+import com.example.application.views.managecars.ManageCarsView;
+import com.example.application.views.onboarding.ClientOnboardingView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.Footer;
@@ -38,7 +41,7 @@ public class MainLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        Span appName = new Span("Practice");
+        Span appName = new Span("Car Hire Admin");
         appName.addClassNames(LumoUtility.FontWeight.SEMIBOLD, LumoUtility.FontSize.LARGE);
         Header header = new Header(appName);
 
@@ -51,6 +54,9 @@ public class MainLayout extends AppLayout {
         SideNav nav = new SideNav();
 
         nav.addItem(new SideNavItem("Dashboard", DashboardView.class, LineAwesomeIcon.PENCIL_RULER_SOLID.create()));
+        nav.addItem(new SideNavItem("Client Onboarding", ClientOnboardingView.class, LineAwesomeIcon.USER.create()));
+        nav.addItem(new SideNavItem("Add Car", ManageCarsView.class, LineAwesomeIcon.CAR_ALT_SOLID.create()));
+        nav.addItem(new SideNavItem("Car Activities", CarActivitiesView.class, LineAwesomeIcon.CLIPBOARD_LIST_SOLID.create()));
 
         return nav;
     }
